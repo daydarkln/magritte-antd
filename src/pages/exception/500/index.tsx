@@ -1,9 +1,8 @@
-import { DownOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import {
   Avatar,
   Badge,
   Button,
-  Card,
   Col,
   ConfigProvider,
   DatePicker,
@@ -22,8 +21,11 @@ import {
   Typography,
 } from 'antd';
 import { useEffect, useState } from 'react';
+import { EmployeeCard } from './components/EmployeeCard';
+import { useStyles } from './styles';
+import { providerConfig } from './themeConfig';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 const { Option } = Select;
 
@@ -49,6 +51,7 @@ const ColleaguesPage = () => {
   const [sorting, setSorting] = useState<string>('experience');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const { styles } = useStyles();
 
   useEffect(() => {
     setEmployees([
@@ -163,105 +166,7 @@ const ColleaguesPage = () => {
   );
 
   return (
-    <ConfigProvider
-      layout={{
-        style: {
-          background: 'none',
-        },
-      }}
-      drawer={{
-        styles: {
-          wrapper: {
-            margin: 12,
-            width: 480,
-          },
-          content: {
-            borderRadius: 24,
-          },
-          header: {
-            padding: 24,
-          },
-          footer: {
-            padding: 24,
-          },
-        },
-      }}
-      button={{
-        style: {
-          boxShadow: 'none',
-        },
-      }}
-      theme={{
-        token: {
-          fontFamily: 'Inter',
-          fontSize: 16,
-          fontSizeSM: 14,
-          fontSizeLG: 22,
-          fontSizeHeading1: 38,
-          fontSizeHeading2: 28,
-          fontSizeHeading3: 24,
-          fontSizeHeading4: 22,
-          fontSizeHeading5: 16,
-          borderRadius: 12,
-          colorPrimary: '#000',
-          controlHeight: 48,
-          controlHeightSM: 40,
-          colorTextPlaceholder: '#AABBCA',
-          colorBorderSecondary: '#AABBCA',
-          controlPaddingHorizontal: 12,
-          colorSplit: '#DCE3EB',
-        },
-        components: {
-          Card: {
-            boxShadow: 'none',
-            borderRadius: 24,
-            colorBorderSecondary: '#DCE3EB',
-          },
-          Avatar: {
-            borderRadius: 16,
-            groupBorderColor: 'rgba(0,0,0,0.08)',
-          },
-          Badge: {},
-          Radio: {
-            fontWeightStrong: 600,
-            buttonBg: '#F1F4F9',
-            buttonColor: '#6A7885',
-            buttonCheckedBg: '#000',
-            buttonSolidCheckedColor: '#fff',
-          },
-          Button: {
-            fontWeight: 600,
-            paddingBlock: 10,
-            defaultBorderColor: 'transparent',
-            defaultHoverBorderColor: 'transparent',
-            defaultActiveBorderColor: 'transparent',
-            defaultBg: '#F1F4F9',
-            defaultHoverBg: '#AABBCA',
-          },
-          Typography: {
-            titleMarginBottom: 0,
-            lineHeightHeading2: 1.466667,
-          },
-          Menu: {
-            itemSelectedBg: 'none',
-            itemHeight: 44,
-          },
-          Form: {
-            margin: 8,
-          },
-          Input: {
-            paddingBlock: 10,
-            hoverBorderColor: '#AABBCA',
-          },
-          Select: {
-            paddingContentHorizontal: 12,
-            showArrowPaddingInlineEnd: 27,
-            optionSelectedColor: 'white',
-            paddingSM: 17,
-          },
-        },
-      }}
-    >
+    <ConfigProvider {...providerConfig}>
       <Layout>
         <Header className="header">
           <Flex justify="space-between" align={'center'}>
@@ -290,13 +195,13 @@ const ColleaguesPage = () => {
               </Button>
 
               <Dropdown overlay={menu} trigger={['click']}>
-                <Button type="text" style={{ display: 'flex', gap: 10 }}>
+                <Flex gap={10}>
                   <Avatar.Group>
                     <Avatar shape="square" size={'default'} icon={<img src="/avatar.png" />} />
                   </Avatar.Group>
 
                   <DownOutlined />
-                </Button>
+                </Flex>
               </Dropdown>
             </Space>
           </Flex>
@@ -304,7 +209,7 @@ const ColleaguesPage = () => {
 
         <Layout>
           <Content style={{ padding: '40px 48px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '92px auto', gap: 28 }}>
+            <div className={styles.pageLayout}>
               <Menu
                 className="main-menu"
                 overflowedIndicatorPopupClassName="menu-popup"
@@ -332,25 +237,26 @@ const ColleaguesPage = () => {
                 <Title level={2}>Коллеги</Title>
 
                 <Radio.Group
-                  style={{ display: 'flex', gap: 12 }}
-                  className="radio-group"
+                  className={styles.radioGroup}
                   onChange={(e) => setSelectedFilter(e.target.value)}
                   value={selectedFilter}
                   size="small"
                   buttonStyle="solid"
                 >
-                  <Radio.Button value="all">
-                    <Space size={14}>
-                      Список коллег <Text className="text-dimmed">121 024</Text>
-                    </Space>
-                  </Radio.Button>
-                  <Radio.Button value="favorites">
-                    <Space size={14}>
-                      Избранные коллеги <Text className="text-dimmed">15</Text>
-                    </Space>
-                  </Radio.Button>
-                  <Radio.Button value="structure">Структура компании</Radio.Button>
-                  <Radio.Button value="guide">Гайд по коллегам</Radio.Button>
+                  <Flex gap={12}>
+                    <Radio.Button value="all">
+                      <Space size={14}>
+                        Список коллег <Text className="text-dimmed">121 024</Text>
+                      </Space>
+                    </Radio.Button>
+                    <Radio.Button value="favorites">
+                      <Space size={14}>
+                        Избранные коллеги <Text className="text-dimmed">15</Text>
+                      </Space>
+                    </Radio.Button>
+                    <Radio.Button value="structure">Структура компании</Radio.Button>
+                    <Radio.Button value="guide">Гайд по коллегам</Radio.Button>
+                  </Flex>
                 </Radio.Group>
 
                 <Form layout="inline">
@@ -395,82 +301,7 @@ const ColleaguesPage = () => {
                   dataSource={employees}
                   renderItem={(employee) => (
                     <List.Item>
-                      <Card variant="outlined">
-                        <Row align={'top'} gutter={24}>
-                          <Col>
-                            <Badge
-                              styles={{
-                                indicator: {
-                                  width: 12,
-                                  height: 12,
-                                  boxShadow: '0 0 0 3px #ffffff',
-                                  top: 'auto',
-                                  bottom: 6,
-                                  right: 0,
-                                  transform: 'none',
-                                  background: '#0EA658',
-                                },
-                              }}
-                              status={employee.isOnline ? 'success' : 'default'}
-                              dot
-                            >
-                              <Avatar.Group>
-                                <Avatar
-                                  style={{ borderRadius: '24px' }}
-                                  shape="square"
-                                  size={96}
-                                  src={employee.image}
-                                />
-                              </Avatar.Group>
-                            </Badge>
-                          </Col>
-                          <Flex vertical gap={4} style={{ flexGrow: 1 }}>
-                            <Title level={4}>{employee.fullName}</Title>
-                            <Text style={{ fontSize: 16 }}>{employee.position}</Text>
-                            <Text type="secondary">{employee.department}</Text>
-                          </Flex>
-                          <Col>
-                            {employee.liked ? (
-                              <HeartFilled
-                                style={{ color: '#FF3C77', fontSize: 24 }}
-                                onClick={() => toggleLike(employee)}
-                              />
-                            ) : (
-                              <HeartOutlined
-                                style={{ fontSize: 24, color: '#AABBCA' }}
-                                onClick={() => toggleLike(employee)}
-                              />
-                            )}
-                          </Col>
-                        </Row>
-
-                        <Row style={{ marginTop: 7 }} gutter={24}>
-                          <Col>
-                            <Space>
-                              <img src="/icons/contacts/mail.svg" />
-                              <Text className="contact-text">{employee.contacts.email}</Text>
-                            </Space>
-                          </Col>
-                          <Col>
-                            <Space>
-                              <img src="/icons/contacts/tg.svg" />
-                              <Text className="contact-text">{employee.contacts.telegram}</Text>
-                            </Space>
-                          </Col>
-                          <Col>
-                            <Space>
-                              <img src="/icons/contacts/message.svg" />
-                              <Text className="contact-text">{employee.contacts.messenger}</Text>
-                            </Space>
-                          </Col>
-                          <Col>
-                            <Space>
-                              <img src="/icons/contacts/phone.svg" />
-                              <Text className="contact-text">{employee.contacts.phone}</Text>
-                            </Space>
-                          </Col>
-                        </Row>
-                      </Card>
+                      <EmployeeCard employee={employee} onLike={() => null} />
                     </List.Item>
                   )}
                 />
