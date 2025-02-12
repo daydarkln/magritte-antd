@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+  & * {
+    letter-spacing: 0.3px;
+  }
+}
+.ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
+  left: unset;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+@media (max-width: 768px) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+    &-thead > tr,
+    &-tbody > tr {
+      > th,
+      > td {
+        white-space: pre;
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.header {
+  background: white;
+  padding-inline: 48px;
+  height: 72px;
+  border-bottom: 1px solid #DCE3EB;
+  display: flex;
+  align-items: center;
+  & > div {
+    width: 100%;
+  }
+}
+
+.top-nav {
+  border: none;
+  & li {
+    line-height: 72px;
+  }
+  & span {
+    font-size: 14px;
+    color: #768694;
+  }
+  
+}
+
+.search-input {
+  min-width: 443px;
+  font-size: 16px;
+}
+
+.search-prefix {
+  margin-left: 12px;
+}
+
+.radio-group > .ant-radio-button-wrapper,
+.radio-group > .ant-radio-button-wrapper:last-child,
+.radio-group > .ant-radio-button-wrapper:first-child {
+  font-size: 1;
+  border: none;
+  border-radius: 20px;
+  border-start-start-radius: 20px;
+    border-end-start-radius: 20px;
+    border-start-end-radius: 20px;
+    border-end-end-radius: 20px;
+    font-weight: 600;
+    padding-inline: 16px;
+}
+
+.radio-group .ant-radio-button-wrapper:not(:first-child)::before {
+  display: none;
+}
+
+.menu-popup {
+  background: white;
+}
+
+.main-menu {
+  width: 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  & .ant-menu-item {
+    padding-inline: 24px;
+    height: 44px;
+    margin: 0;
+  }
+}
+
+.ant-menu-horizontal .ant-menu-item {
+  padding-inline: 4px;
+  margin-inline: 4px;
+}
+
+
+.contact-text {
+  color: #0070FF;
+  letter-spacing: 0.5%;
+  text-decoration: underline;
+}
+
+.text-dimmed {
+  color: #AABBCA;
+}
+
+.ant-radio-button-checked {
+  .text-dimmed {
+    color: #BBC8D4;
+  }
+}
